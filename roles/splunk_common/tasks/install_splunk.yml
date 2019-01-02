@@ -4,7 +4,7 @@
     msg: "dynamic: {{ splunk.dynamic }}"
 
 - name: Dynamic mode, download Splunk package
-  include tasks: dynamic_splunk_install.yml
+  include_tasks: dynamic_splunk_install.yml
   when: splunk.dynamic | bool
 
 - name: Install Splunk
