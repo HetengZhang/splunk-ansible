@@ -1,4 +1,12 @@
 ---
+- name: debug statement, what do we have?
+  debug:
+    msg: "dynamic: {{ splunk.dynamic }}"
+
+- name: Dynamic mode, download Splunk package
+  include tasks: dynamic_splunk_install.yml
+  when: splunk.dynamic | bool
+
 - name: Install Splunk
   unarchive:
     src: "{{ splunk.build_location }}"

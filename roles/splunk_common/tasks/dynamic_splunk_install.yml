@@ -1,0 +1,36 @@
+---
+- name: debug statement
+  debug:
+    msg: "build_loc: {{ splunk.build_location }},    opt: {{ splunk.opt }},    remote_src: {{ splunk.build_remote_src }}"
+
+- name: debug src
+  debug:
+    msg: "src: {{ src }}"
+
+- name: Download Splunk source (Linux)
+  get_url:
+    url: "{{ src }}"
+    dest: "{{ splunk.build_location }}"
+    mode: 0777
+    timeout: 600
+  register: item
+  until: item | succeeded
+  retries: 5
+  delay: 10
+  when:
+  - src | regex_search("^(http).*")
+  - ansible_system is match("Linux")
+
+- name: Download Splunk source (Windows)
+  get_url:
+    url: "{{ src }}"
+    dest: "{{ splunk.build_location }}"
+    mode: 0777
+    timeout: 600
+  register: item
+  until: item | succeeded
+  retries: 5
+  delay: 10
+  when:
+  - src | regex_search("^(http).*")
+  - ansible_system is not match("Linux")
