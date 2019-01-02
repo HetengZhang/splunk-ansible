@@ -2,7 +2,7 @@
 - name: Download Splunk source (Linux)
   get_url:
     url: "{{ splunk.build_location }}"
-    dest: "{{ splunk.opt }}"
+    dest: "{{ splunk.build_destination }}"
     mode: 0777
     timeout: 600
   register: item
@@ -16,7 +16,7 @@
 - name: Download Splunk source (Windows)
   get_url:
     url: "{{ splunk.build_location }}"
-    dest: "{{ splunk.opt }}"
+    dest: "{{ splunk.build_destination }}"
     mode: 0777
     timeout: 600
   register: item
