@@ -9,6 +9,7 @@
   until: item | succeeded
   retries: 5
   delay: 10
+  force: true
   when:
   - splunk.build_location | regex_search("^(http).*")
   - ansible_system is match("Linux")
@@ -23,6 +24,7 @@
   until: item | succeeded
   retries: 5
   delay: 10
+  force: true
   when:
   - splunk.build_location | regex_search("^(http).*")
   - ansible_system is match("CYGWIN*|Win32NT")
