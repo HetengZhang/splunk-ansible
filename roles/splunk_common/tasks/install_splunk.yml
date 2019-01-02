@@ -1,19 +1,7 @@
 ---
-- name: debug statement
-  debug:
-    msg: "build_destination: {{ splunk.build_destination }}"
-
-- name: check for existing files
-  find:
-    paths: /tmp
-
 - name: Dynamic mode, download Splunk package
   include_tasks: dynamic_splunk_install.yml
   when: splunk.dynamic | bool
-
-- name: check for new files
-  find:
-    paths: /tmp
 
 - name: Install Splunk
   unarchive:
