@@ -1,12 +1,4 @@
 ---
-- name: debug statement
-  debug:
-    msg: "ansible_system: {{ ansible_system }},     build_location: {{ splunk.build_location }}"
-
-- name: check for existing files
-  find:
-    paths: /opt
-
 - name: Download Splunk source (Linux)
   get_url:
     url: "{{ splunk.build_location }}"
@@ -34,7 +26,3 @@
   when:
   - splunk.build_location | regex_search("^(http).*")
   - ansible_system is match("CYGWIN*|Win32NT")
-
-- name: check for new files
-  find:
-    paths: /opt

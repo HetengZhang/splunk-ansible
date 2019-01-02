@@ -1,7 +1,19 @@
 ---
+- name: debug statement
+  debug:
+    msg: "ansible_system: {{ ansible_system }},     build_location: {{ splunk.build_location }}"
+
+- name: check for existing files
+  find:
+    paths: /opt
+
 - name: Dynamic mode, download Splunk package
   include_tasks: dynamic_splunk_install.yml
   when: splunk.dynamic | bool
+
+- name: check for new files
+  find:
+    paths: /opt
 
 - name: Install Splunk
   unarchive:
