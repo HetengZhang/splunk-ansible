@@ -5,11 +5,11 @@
     dest: "{{ splunk.build_destination }}"
     mode: 0777
     timeout: 600
-  register: result
-  until: result | succeeded
+    force: true
+  register: item
+  until: item | succeeded
   retries: 5
   delay: 10
-  force: true
   when:
   - splunk.build_location is regex_search("^(http).*")
   - ansible_system is match("Linux")
@@ -20,11 +20,11 @@
     dest: "{{ splunk.build_destination }}"
     mode: 0777
     timeout: 600
-  register: result
-  until: result | succeeded
+    force: true
+  register: item
+  until: item | succeeded
   retries: 5
   delay: 10
-  force: true
   when:
   - splunk.build_location is regex_search("^(http).*")
   - ansible_system is match("CYGWIN*|Win32NT")
