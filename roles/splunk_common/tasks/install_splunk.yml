@@ -3,10 +3,6 @@
   include_tasks: dynamic_splunk_install.yml
   when: splunk.dynamic | bool
 
-- name: Inspect before unarchive
-  find:
-    paths: "{{ splunk.opt }}"
-
 - name: Install Splunk
   unarchive:
     src: "{{ splunk.build_destination }}"
@@ -27,10 +23,6 @@
   until: result is succeeded
   retries: "{{ retry_num }}"
   delay: 3
-
-- name: Inspect after unarchive
-  find:
-    paths: "{{ splunk.opt }}"
 
 - name: Remove installer
   file:
