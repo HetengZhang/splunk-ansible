@@ -1,4 +1,8 @@
 ---
+- name: debug statement ufw
+  debug:
+    msg: "build_location: {{ splunk.build_location }}"
+
 - name: Install Splunk universal forwarder
   unarchive:
     src: "{{ splunk.build_location }}"
