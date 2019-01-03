@@ -1,8 +1,4 @@
 ---
-- name: debug statement ufw
-  debug:
-    msg: "build_location: {{ splunk.build_location }}"
-
 - name: Install Splunk universal forwarder (Linux)
   unarchive:
     src: "{{ splunk.build_location }}"
@@ -17,8 +13,8 @@
   when: ansible_system is match("CYGWIN*|Win32NT")
 
 - name: Check /opt folder
-  find:
-    paths: "{{ splunk.opt }}"
+  stat:
+    path: "/opt/splunkforwarder"
 
 - name: Generate user-seed.conf
   ini_file:
