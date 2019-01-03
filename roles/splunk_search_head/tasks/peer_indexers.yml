@@ -2,6 +2,7 @@
 - include_tasks: ../../../roles/splunk_common/tasks/wait_for_splunk_instance.yml 
   vars:
     splunk_instance_address: "{{ groups['splunk_indexer'][0] }}"
+  when: groups.splunk_indexer is defined
 
 - name: Set all indexers as search peers
   command: "{{ splunk.exec }} add search-server https://{{ item }}:{{ splunk.svc_port }} -auth admin:{{ splunk.password }} -remoteUsername admin -remotePassword {{ splunk.password }}"
@@ -17,3 +18,4 @@
   notify:
     - Restart the splunkd service
   no_log: "{{ hide_password }}"
+  when: groups.splunk_indexer is defined
