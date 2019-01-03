@@ -3,7 +3,7 @@
   debug:
     msg: "build_location: {{ splunk.build_location }}"
 
-- name: Install Splunk universal forwarder
+- name: Install Splunk universal forwarder (Linux)
   unarchive:
     src: "{{ splunk.build_location }}"
     dest: "{{ splunk.opt }}"
@@ -15,6 +15,10 @@
 - name: Install Splunk universal forwarder (Windows)
   command: "msiexec /I {{ splunk.build_location }} AGREETOLICENSE=yes LAUNCHSPLUNK=0 INSTALLDIR=C:\\\\opt\\\\splunkforwarder /passive /qn"
   when: ansible_system is match("CYGWIN*|Win32NT")
+
+- name: Check /opt folder
+  find:
+    paths: "{{ splunk.opt }}"
 
 - name: Generate user-seed.conf
   ini_file:
