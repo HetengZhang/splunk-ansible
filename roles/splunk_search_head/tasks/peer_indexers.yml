@@ -27,4 +27,4 @@
   notify:
     - Restart the splunkd service
   no_log: "{{ hide_password }}"
-  when: "'splunk_indexer' in groups['WebServers']|default([])"
+  when: "'splunk_indexer' in groups"
