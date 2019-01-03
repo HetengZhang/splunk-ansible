@@ -3,16 +3,6 @@
   vars:
     splunk_instance_address: "{{ groups['splunk_indexer'][0] }}"
 
-- name: Debug check
-  debug:
-    msg: "{{ groups['splunk_indexer'] }}"
-  when: "'splunk_indexer' in groups"
-
-- name: Debug check 2 (missing)
-  debug:
-    msg: "splunk indexer group is missing"
-  when: "'splunk_indexer' not in groups"
-
 - name: Set all indexers as search peers
   command: "{{ splunk.exec }} add search-server https://{{ item }}:{{ splunk.svc_port }} -auth admin:{{ splunk.password }} -remoteUsername admin -remotePassword {{ splunk.password }}"
   become: yes
