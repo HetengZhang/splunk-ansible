@@ -3,7 +3,7 @@
   include_tasks: dynamic_splunk_install.yml
   when: splunk.dynamic | bool
 
-- name: Install Splunk
+- name: Install Splunk (Linux)
   unarchive:
     src: "{{ splunk.build_destination }}"
     dest: "{{ splunk.opt }}"
