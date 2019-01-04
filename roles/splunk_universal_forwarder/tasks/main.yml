@@ -3,6 +3,10 @@
   include_tasks: ../../splunk_common/tasks/dynamic_splunk_install.yml
   when: splunk.dynamic | bool
 
+- name: debug statement
+  debug:
+    msg: "location: {{ splunk.build_location }}     dynamic: {{ splunk.dynamic }}     dest: {{ splunk.build_destination }}"
+
 - name: Install Splunk universal forwarder (Linux)
   unarchive:
     src: "{{ splunk.build_destination }}"
