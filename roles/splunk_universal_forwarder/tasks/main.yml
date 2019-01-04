@@ -1,7 +1,19 @@
 ---
-- name: Dynamic mode, download Splunk forwarder package
-  include_tasks: ../../splunk_common/tasks/dynamic_splunk_install.yml
-  when: splunk.dynamic | bool
+- name: Download splunk package
+  get_url:
+    url: "{{ splunk.build_location }}"
+    dest: "/tmp/splunk.tgz"
+    mode: 0777
+    timeout: 600
+    force: true
+  register: item
+  until: item | succeeded
+  retries: 5
+  delay: 10
+  when:
+  - splunk.build_location | regex_search("^(http).*")
+  - not splunk.dynamic
+  - ansible_system is match("CYGWIN*|Win32NT")
 
 - name: debug statement
   debug:
