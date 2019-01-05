@@ -12,12 +12,11 @@
   delay: 10
   when:
   - splunk.build_location | regex_search("^(http).*")
-  - not splunk.dynamic
   - ansible_system is match("CYGWIN*|Win32NT")
 
 - name: Install Splunk (Linux)
   unarchive:
-    src: "/tmp/splunk.tgz"
+    src: "{{ splunk.build_location }}"
     dest: "{{ splunk.opt }}"
     owner: "{{ splunk.user }}"
     group: "{{ splunk.group }}"
